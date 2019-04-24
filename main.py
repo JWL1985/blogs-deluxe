@@ -20,27 +20,41 @@ class Blog(db.Model):
 @app.route("/blog")
 def index():
     title = "Build A Blog"
-    return render_template("base.html", title=title)
+    blogs = Blog.query.all()
+    return render_template("home_page.html", title=title, blogs=blogs)
 
 @app.route("/blogpost", methods=["POST", "GET"])
 #blog_id = request.form["blog-id"]
 def blog_post(): #TODO- set up so blog_post() blog_id as an argument
-    if request.method == "POST":
+    
+    if request.method == "GET":
+        blog_id = request.args.get("id")
+        blogs = Blog.query.filter_by(id=blog_id).all()
+        return render_template("display_blog.html", blogs=blogs)
+    else:
         blog_title = request.form["blog_title"]
         blog_body = request.form["blog_body"]
         blog = Blog(blog_title, blog_body)
         db.session.add(blog)
         db.session.commit()
-
-        blog_id = blog.id 
-
-
+        blog_id = blog.id
+        blogs = Blog.query.filter_by(id=blog_id).all()
     
-    return render_template("display_blog.html", blog_title=blog_title, blog_body=blog_body)
+    return render_template("display_blog.html", blogs=blogs)
 
 @app.route("/newpost")
 def new_post():
-    return render_template("new_post.html")
+    blog_title = request.args.get("blog_title")
+    blog_body = request.args.get("blog_body")
+    if blog_title and blog_body:
+        blog = Blog(blog_title, blog_body)
+        db.session.add(blog)
+        db.session.commit()
+        id = str(blog.id) 
+        #query_string = blog_title + blog_body + id
+        return redirect("/blogpost?id="+id)
+    else:
+        return render_template("new_post.html")
 
 if __name__ == "__main__":
     app.run()

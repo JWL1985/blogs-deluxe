@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{title}}</h1>
+<div>
+    <ul>
+    {% for blog in blogs %}
+        <li>
+            <a href="/blogpost?id={{blog.id}}" ><h2>{{blog.title}}</h2></a><br>
+            <p>{{blog.body}}</p>
+        </li>
+    {% endfor %}
+    </ul>
+</div>
+
+
+{% endblock %}
