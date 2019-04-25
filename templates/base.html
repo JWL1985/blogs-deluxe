@@ -7,20 +7,38 @@
                 color: red;
                 font-style: bold;
             }
+            .main_background {
+                background-color: lightgrey;
+            }
+            .header {
+                width: 100%;
+                padding-top: 32px;
+                padding-bottom: 32px;
+                text-align: center!important;               
+            }
+            button {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-left: 10px;
+                padding-right: 10px;
+            }
             .menu-links {
                 color: blue;
                 font-style: bold;
                 font-size: 24px;
                 text-transform: uppercase;
-                
+                margin-top: 20px;
+                margin-left: 20px;
+                margin-bottom: 20px;               
             }
             .title {
                 text-align: center;
             }
             .home_blog_posts {
-                text-align: center;
+                text-align: left;
                 margin-left: 30%;
                 margin-right: 30%;
+                list-style-type: none;
             }
 
             ul.home_blog_posts {
@@ -31,10 +49,15 @@
     </head>
 
 <body>
-    <div>
-        <a class="menu-links" href="/blog">Main Blog Page</a>
-        <a class="menu-links" href="/newpost">Add a Blog Entry</a>
-    </div>
+    <header class="header">
+        <div>
+            <!-- <a class="button" href="/blog">Main Blog Page</a> -->
+            <input type="button" onclick="window.location.href = '/blog';" value="Home Page" />
+            <!-- <button class="menu-links"> <a>href="/newpost"</a>Add a Blog Entry</button> -->
+            <input type="button" onclick="window.location.href = '/newpost';" value="Add New Post" />
+        </div>
+    </header>
+<div class="main_background">    
     {% block content %}
     {% endblock %}
     {% with messages = get_flashed_messages(with_categories=True) %}
@@ -44,5 +67,6 @@
         {% endfor %}
         </ul>
     {% endwith %}
+</div>
 </body>
 </html>
