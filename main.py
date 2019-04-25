@@ -54,7 +54,24 @@ def new_post():
         #query_string = blog_title + blog_body + id
         return redirect("/blogpost?id="+id)
     else:
+        #flash("Please enter valid Title & Blog Post")
         return render_template("new_post.html")
+
+@app.route("/newpost-validate")
+def validate_post():
+    blog_title = request.args.get("blog_title")
+    blog_body = request.args.get("blog_body")
+    if not blog_title or not blog_body:
+        flash("Please Enter A Valid Title & Blog Post", "error")
+        return render_template("new_post.html", title=blog_title, body=blog_body)
+    else:
+        blog = Blog(blog_title, blog_body)
+        db.session.add(blog)
+        db.session.commit()
+        id = str(blog.id) 
+        #query_string = blog_title + blog_body + id
+        return redirect("/blogpost?id="+id)
+        #return redirect("/newpost?"+query_string)
 
 if __name__ == "__main__":
     app.run()

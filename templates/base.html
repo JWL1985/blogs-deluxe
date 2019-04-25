@@ -2,14 +2,47 @@
 <html>
     <head>
         <title>{{title}}</title>
+        <style>
+            .error {
+                color: red;
+                font-style: bold;
+            }
+            .menu-links {
+                color: blue;
+                font-style: bold;
+                font-size: 24px;
+                text-transform: uppercase;
+                
+            }
+            .title {
+                text-align: center;
+            }
+            .home_blog_posts {
+                text-align: center;
+                margin-left: 30%;
+                margin-right: 30%;
+            }
+
+            ul.home_blog_posts {
+                text-align: left;
+                list-style-type: none;
+            }
+        </style>
     </head>
 
 <body>
     <div>
-        <a href="/blog">Main Blog Page</a>
-        <a href="/newpost">Add a Blog Entry</a>
+        <a class="menu-links" href="/blog">Main Blog Page</a>
+        <a class="menu-links" href="/newpost">Add a Blog Entry</a>
     </div>
     {% block content %}
     {% endblock %}
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        <ul>
+        {% for category, message in messages %}
+            <li class={{category}}>{{message}}</li>
+        {% endfor %}
+        </ul>
+    {% endwith %}
 </body>
 </html>

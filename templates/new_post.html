@@ -2,11 +2,11 @@
 
 {% block content %}
 <h1>Have Some Fun & ADD A BLOG POST</h1>
-<form method="GET" action="/newpost">
+<form method="GET" action="/newpost-validate">
     <label>Blog Title:</label><br>
-        <input type="text" name="blog_title" style="width:50%"/><br>
+        <input type="text" name="blog_title" value="{{title}}" style="width:50%"/><br>
     <label>Blog Content:</label><br>
-        <input type="text" name="blog_body" style="height:200px; width:50%"/><br>
+        <input type="text" name="blog_body" value="{{body}}" style="height:200px; width:50%"/><br>
 
     <input type="submit" value="Submit Blog Post"/>
 </form>
