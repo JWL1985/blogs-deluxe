@@ -9,6 +9,8 @@
             }
             .main_background {
                 background-color: lightgrey;
+                margin-left: 50px;
+                margin-right: 50px;
             }
             .header {
                 width: 100%;
@@ -16,13 +18,18 @@
                 padding-bottom: 32px;
                 text-align: center!important;               
             }
-            button {
-                padding-top: 10px;
-                padding-bottom: 10px;
-                padding-left: 10px;
-                padding-right: 10px;
+            .header ul {
+                margin-left: 30%;
+                margin-right: 30%;
+                list-style-type: none;
+                border-radius: 20%;
             }
-            .menu-links {
+            .button {
+                padding-top: 20px;
+                padding-bottom: 20px;
+                padding-left: 30px;
+                padding-right: 30px;
+                background-color: red;
                 color: blue;
                 font-style: bold;
                 font-size: 24px;
@@ -45,16 +52,22 @@
                 text-align: left;
                 list-style-type: none;
             }
+            .new_post_form {
+                padding-left: 20px;
+                padding-top: 20px;
+                padding-bottom: 20px;
+                padding-block-end: 10px;
+            }
         </style>
     </head>
 
 <body>
     <header class="header">
         <div>
-            <!-- <a class="button" href="/blog">Main Blog Page</a> -->
-            <input type="button" onclick="window.location.href = '/blog';" value="Home Page" />
-            <!-- <button class="menu-links"> <a>href="/newpost"</a>Add a Blog Entry</button> -->
-            <input type="button" onclick="window.location.href = '/newpost';" value="Add New Post" />
+            <ul>
+                <li class="button"><a href="/blog">Main Blog Page</a></li> 
+                <li class="button"><a href="/newpost">Add New Post</a></li>
+            </ul>
         </div>
     </header>
 <div class="main_background">    
