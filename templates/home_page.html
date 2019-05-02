@@ -6,7 +6,7 @@
     <ul>
     {% for blog in blogs %}
         <li>
-            <a href="/blogpost?id={{blog.id}}" ><h2>{{blog.title}}</h2></a><br>
+            <a href="/blogpost?blog_id={{blog.id}}" ><h2>{{blog.title}}</h2></a><br>
             <p>{{blog.body}}</p>
         </li>
     {% endfor %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class= "main_form">
+    <h1>Sign-Up Form</h1>
+    {%  if form %}
+    {{ form }}
+    {% endif %}
+    <form action= "/signup" method= "POST">            
+        <label for= "username" value= "">Username:</label>
+        <input id= "username" type= "text" name= "username" value="{{ request.form['username'] }}" /><br>
+        <label for= "password" value= "">Password:</label>
+        <input type= "password" name= "password" autocomplete= "off" /><br>
+        <label for= "password" value= "">Verify Password:</label>
+        <input type= "password" name= "verify-password" autocomplete = "off" /><br>
+        <label for= "email" value= "">E-Mail:</label>
+        <input type= "text" name= "email" value="{{ request.form['email'] }}"/><br>           
+        <input id="sub_button" type= "submit"/>
+    </form>
+    {% endblock %}
