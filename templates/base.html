@@ -8,25 +8,21 @@
                 font-style: bold;
             }
             .main_background {
-                background-color: lightgrey;
-                margin-left: 50px;
-                margin-right: 50px;
+                background-color: #4b88f2;
+                
             }
+
             .header {
-                width: 100%;
-                padding-top: 32px;
-                padding-bottom: 32px;
-                text-align: center!important;               
+                background-color: #333;
+                overflow: hidden;
+                text-align: center;
+                padding-top: 45px;
+                padding-bottom: 45px;  
+                             
             }
-            .header ul {
-                margin-left: 30%;
-                margin-right: 30%;
-                list-style-type: none;
-                border-radius: 20%;
-            }
-            .button {
-                padding-top: 20px;
-                padding-bottom: 20px;
+            .header a {
+                padding-top: 10px;
+                padding-bottom: 10px;
                 padding-left: 30px;
                 padding-right: 30px;
                 background-color: red;
@@ -41,11 +37,12 @@
             .title {
                 text-align: center;
             }
-            .home_blog_posts {
+            .home_blog_posts li {
                 text-align: left;
                 margin-left: 30%;
                 margin-right: 30%;
                 list-style-type: none;
+                border: 10px 10px;
             }
 
             ul.home_blog_posts {
@@ -64,11 +61,10 @@
 <body>
     <header class="header">
         <div>
-            <ul>
-                <li class="button"><a href="/blog">Main Blog Page</a></li> 
-                <li class="button"><a href="/newpost">Add New Post</a></li>
-                <li class="button"><a href="/logout">Logout</a></li>
-            </ul>
+            <a href="/blog">Main Blog Page</a>
+            <a href="/newpost">Add New Post</a>
+            <a href="/logout">Logout</a>
+            <a href="/signup">Create New Account</a>
         </div>
     </header>
 <div class="main_background">    

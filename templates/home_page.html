@@ -6,8 +6,9 @@
     <ul>
     {% for blog in blogs %}
         <li>
-            <a href="/blogpost?blog_id={{blog.id}}" ><h2>{{blog.title}}</h2></a><br>
+            <a href="/blog/blogpost?blog_id={{blog.id}}" ><h2>{{blog.title}}</h2></a><br>
             <p>{{blog.body}}</p>
+            <a href="/blog/user_page?user_id={{blog.owner_id}}" ><h5>Author: {{blog.owner.username}}</h5></a>
         </li>
     {% endfor %}
     </ul>

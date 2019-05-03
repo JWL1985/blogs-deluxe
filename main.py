@@ -82,7 +82,11 @@ def require_login():
 
 @app.route("/")
 def index():
-    del session["email"]
+    if session["email"]:
+        email = session["email"]
+        user = User.query.filter_by(email=email).first()
+        user_id = str(user.id)
+        return redirect("/blog/user_page?user_id="+user_id)
     return redirect("/login")
 
 @app.route("/login", methods=["POST", "GET"])
@@ -97,15 +101,17 @@ def login():
         if user:
             if validate_login(username, email, password):
                 session["email"] = email 
-                user_id = user.id 
+                user_id = str(user.id) 
                 blogs = Blog.query.filter_by(owner_id=user_id).all()                
-                return render_template("home_page.html", blogs=blogs)
+                return redirect("/blog/user_page?user_id="+user_id)
                 #TODO - route them to their user page (or /blog page)
             else:
                 #flash("Incorrect Password")
                 return redirect("/signup")
                 #TODO - display errors and redirect to /login page
-
+        else:
+            flash("We don't have any accounts matching that username or email, please go to Signup page to create a new account.")
+            return render_template("login.html")
 
 @app.route("/signup", methods = ["POST", "GET"])
 def signup():
@@ -118,11 +124,8 @@ def signup():
         if user:
             if validate_login(username, email, password):
                 session["email"] = email 
-                user_id = user.id 
-                blogs = Blog.query.filter_by(owner_id=user_id).all()                
-                return render_template("home_page.html", blogs=blogs)
-                #TODO - start session for user
-                #TODO - route them to their user page (or /blog page)
+                user_id = user.id                 
+                return redirect("/blog/user_page?user_id="+user_id)
             else:
                 return render_template("/signup.html")
                 #TODO - display errors and redirect to /login page
@@ -131,13 +134,18 @@ def signup():
                 user = User(username, email, password)
                 db.session.add(user)
                 db.session.commit()
-                #user_id = user.id
                 session["email"] = email #TODO - start session for user  
-                user_id = user.id               
-                blogs = Blog.query.filter_by(owner_id=user_id).all()
-                return render_template("home_page.html", blogs=blogs)
+                user_id = str(user.id )              
+                return redirect("/blog/user_page?user_id="+user_id)
     else:
         return render_template("/signup.html")
+
+@app.route("/blog/user_page")
+def user_page():
+    user_id = request.args.get("user_id")
+    blogs = Blog.query.filter_by(owner_id=user_id).all()
+    return render_template("user_page.html", blogs=blogs)
+
 
 @app.route("/blog")
 def blog():
@@ -145,7 +153,7 @@ def blog():
     blogs = Blog.query.all()
     return render_template("home_page.html", title=title, blogs=blogs)
 
-@app.route("/blogpost", methods=["POST", "GET"])
+@app.route("/blog/blogpost", methods=["POST", "GET"])
 #blog_id = request.form["blog-id"]
 def blog_post(): #TODO- set up so blog_post() blog_id as an argument
     
@@ -171,7 +179,7 @@ def new_post():
         blog_id = str(blog.id)
         owner_id = str(owner.id) 
         #query_string = blog_title + blog_body + id
-        return redirect("/blogpost?blog_id="+blog_id+"owner_id="+owner_id)
+        return redirect("/blog/blogpost?blog_id="+blog_id+"owner_id="+owner_id)
     else:
         #flash("Please enter valid Title & Blog Post")
         return render_template("new_post.html")
